@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,49 +11,26 @@ namespace Study_ConsoleApp
     {
         static void Main(string[] args)
         {
-            /*Console.WriteLine("Hello, ");
-            //Console.Write("Hello, ");
-            //Console.Write("Hello, \n");
-            //Console.Write("Hello, \t\t");
-            Console.WriteLine("Welcome to C#...");
-            */
+            short num1 = 10;
+            short num2 = 20;
+            short sum = (short)(num1 + num2); //type casting: from bigger to smaller value
+            Console.WriteLine(sum);
 
-            const int a = 10;
-            string s = "Studying C#";
+            double num3 = 1325423452344.23134123433F;
+            double num4 = 99948484764567918.946356346543643563456345F;
+            float mul = (float)( num3*num4);
+            Console.WriteLine("The multiply and changing to float number= " + mul);
 
-            Console.WriteLine(a);
-            Console.WriteLine(s);
+            int a = 10;
+            object o = a; //boxing: copying from stack to heap
+            Console.WriteLine("Printing object 'o' which has int 'a' value: " + o);
 
+            int b = (int) o;  //unboxing: copying from heap to stack
+            Console.WriteLine("Printing int b value which has object 'o' value(object has int datatype): " + b);
 
-            string name = "John";
-            int age = 30;
-
-            Console.WriteLine(name);
-            Console.WriteLine(age);
-
-            Console.WriteLine("User name is " + name);
-            Console.WriteLine("User age is " + age);
-
-            Console.WriteLine("User name is " + name + ", User age is " + age);
-
-            Console.WriteLine("User name is " + name +  "\nUser age is " + age);
-
-            Console.WriteLine("User name is {0}\nUser age is {1}",name, age);
-
-            string name1 = Console.ReadLine();
-            int age1 = int.Parse(Console.ReadLine());
-            Console.WriteLine("User name is {0}\nUser age is {1}", name1, age1);
-
-
-            Console.WriteLine("Enter User name");
-            string name2 = Console.ReadLine();
-            Console.WriteLine("Enter User age");
-            int age2 = int.Parse(Console.ReadLine());
-
-            Console.Clear();
-
-            Console.WriteLine("User name is {0}\nUser age is {1}", name2, age2);
-
+            object o1 = "This is String";
+            int b1 = (int)o1; //there is no compile time error but there will be runtime error 
+            Console.WriteLine("Printing int b value which has object 'o' value (object has string datatype): " + b1);
         }
     }
 }
