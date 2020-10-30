@@ -11,26 +11,31 @@ namespace Study_ConsoleApp
     {
         static void Main(string[] args)
         {
-            short num1 = 10;
-            short num2 = 20;
-            short sum = (short)(num1 + num2); //type casting: from bigger to smaller value
-            Console.WriteLine(sum);
+            string s = null; // heap memory with reference type can store 'null' but a stack memory with value type can't store 'null'
 
-            double num3 = 1325423452344.23134123433F;
-            double num4 = 99948484764567918.946356346543643563456345F;
-            float mul = (float)( num3*num4);
-            Console.WriteLine("The multiply and changing to float number= " + mul);
+            Console.WriteLine("Is 's' NULL printed below?");
+            Console.WriteLine(s);
+            Console.WriteLine("Is 's'  NULL printed above?");
+            Console.WriteLine("++++++++++");
 
-            int a = 10;
-            object o = a; //boxing: copying from stack to heap
-            Console.WriteLine("Printing object 'o' which has int 'a' value: " + o);
+            int? a = null; //to make value type 'null' we add '?' because null can be passed to value type from external source file
+            Console.WriteLine("Is 'a' NULL printed below?");
+            Console.WriteLine(a);
+            Console.WriteLine("Is 'a' NULL printed above?");
+            Console.WriteLine("++++++++++");
 
-            int b = (int) o;  //unboxing: copying from heap to stack
-            Console.WriteLine("Printing int b value which has object 'o' value(object has int datatype): " + b);
+            int? b = a ?? 20;
+            Console.WriteLine("When a is NULL, b= "+b);
+            Console.WriteLine("++++++++++");
 
-            object o1 = "This is String";
-            int b1 = (int)o1; //there is no compile time error but there will be runtime error 
-            Console.WriteLine("Printing int b value which has object 'o' value (object has string datatype): " + b1);
+            int? a1 = 10;
+            Console.WriteLine("When a1 is NOT NULL, a1= "+ a1);
+            Console.WriteLine("++++++++++");
+
+            int? b1 = a1 ?? 20;
+            Console.WriteLine("When a1 is NOT NULL,b1= " + b1);
         }
     }
 }
+
+
