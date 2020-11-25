@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.IO;
@@ -6,8 +7,158 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace Study_ConsoleApp
 {
+
+    public static class DiceLibrary
+    {
+        //Random number generator to simulate dice rolls
+        static Random rand = new Random();
+
+        //Roll a single die
+        public static int Roll()
+        {
+            return rand.Next(1, 7);
+        } //End of method Roll()
+
+        //Roll two dice
+        public static List<object> Roll2()
+        {
+            var rolls = new List<object>();
+            rolls.Add(Roll());
+            rolls.Add(Roll());
+            return rolls;
+        } // End of method Roll2()
+
+        //Calculate the sum of n dice rolls
+        public static int DiceSum(IEnumerable<object> values)
+        {
+            var sum = 0; //assigning value 0 instead of assigning value through LINQ
+            foreach (var item in values)
+            {
+                switch (item)
+                {
+                    // A single zero value
+                    case 0:
+                        break;
+                    // A single value
+                    case int val:
+                        sum += val;
+                        break;
+                    // A non-empty collection
+                    case IEnumerable<object> subList when subList.Any():
+                        sum += DiceSum(subList);
+                        break;
+                    // An empty collection
+                    case IEnumerable<object> subList:
+                        break;
+                    // A null reference
+                    case null:
+                        break;
+                    // A value that is neither an integer nor a collection
+                    default:
+                        throw new InvalidOperationException("unknown item type");
+                }
+            }
+            return sum;
+        } // End of method DiceSum(IEnumerable<object> values)
+
+        //Pass
+        public static object Pass()
+        {
+            if (rand.Next(0, 2) == 0)  // (0,2) and not (1,7)
+            {
+                return null;
+            }
+
+            else
+            {
+                return new List<object>();
+            }
+        } //End of method Pass()
+
+    } //End of class DiceLibrary
+
+    public abstract class Shape
+    {
+        public abstract double Area { get; }
+        public abstract double Circumference { get; }
+    } // End of class Shape
+
+    public class Rectangle : Shape
+    {
+        public Rectangle(double length, double width)
+        {
+            Length = length;
+            Width = width;
+        }
+
+        public double Length { get; set; }
+        public double Width { get; set; }
+
+        public override double Area
+        {
+            get { return Math.Round(Length * Width, 2); }
+        }
+
+        public override double Circumference
+        {
+            get { return ((Length + Width) * 2); }
+        }
+    } // End of class Rectangle : Shapee
+    public class Square : Rectangle
+    {
+        public Square(double side) : base(side, side)
+        {
+            Side = side;
+        }
+
+        public double Side { get; set; }
+    } // End of class Square : Rectangle
+
+    public class Circle : Shape
+    {
+        public Circle(double radius)
+        {
+            Radius = radius;
+        }
+
+        public double Radius { get; set; }
+
+        public override double Area
+        {
+            get { return (Math.PI * Math.Pow(Radius, 2)); }
+        }
+
+        public override double Circumference
+        {
+            get { return (2 * Math.PI * Radius); }
+        }
+    } //End of class Circle : Shape
+
+    public class Amoeba : Shape
+    {
+        public Amoeba(double pseudopods)
+        {
+            Pseudopods = pseudopods;
+        }
+
+        public double Pseudopods { get; set; }
+
+        public override double Area
+        {
+            get { return (new Random().Next(1, 4)); }
+        }
+
+        public override double Circumference
+        {
+            get { return (new Random().Next(1, 3)); }
+        }
+    } //End of class Amoeba : Shape
+
+
     class Program
     {
 
@@ -163,7 +314,7 @@ namespace Study_ConsoleApp
                     Console.Write(num_two + "\t");
                     count++;
                 }
-
+         
                 num_two++;
             }
 
@@ -223,11 +374,12 @@ namespace Study_ConsoleApp
             for (int i_eight = 1; i_eight <= 10; i_eight++)
             {
                 if (i_eight == 5)
-                {
+                {          
                     break;
                 }
                 Console.WriteLine("Number = " + i_eight);
             }
+
 
             // Jump statement: Continue
             // 'Continue' forces the next iteration of 'loop' to take place, skipping any code in between
@@ -280,7 +432,6 @@ namespace Study_ConsoleApp
         } // End of Main method
     } // End of class 'Program'
 }//End of namespace 'Study_ConsoleApp'
-
 
 
 
